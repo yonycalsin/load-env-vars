@@ -1,6 +1,21 @@
-export const sum = (a: number, b: number) => {
-  if ('development' === process.env.NODE_ENV) {
-    console.log('boop');
+import { config } from "dotenv";
+
+function getEnv() {
+  const env = process.env.NODE_ENV;
+
+  if (env === "test") {
+    return "testing";
   }
-  return a + b;
-};
+
+  if (!env || env === "development") {
+    return "development";
+  }
+
+  return env;
+}
+
+const path = `.env.${getEnv()}`;
+
+console.log(`Load "${path}"`);
+
+config({ path });
