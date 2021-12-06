@@ -1,17 +1,20 @@
 import { config } from 'dotenv';
 
-function getEnv() {
-  const env = process.env.NODE_ENV;
+const getNodeEnv = () =>
+  process.env['NODE_ENV'] ? `${process.env['NODE_ENV']}` : null;
 
-  if (env === 'test') {
+function getEnv() {
+  const currentNodeEnv = getNodeEnv();
+
+  if (currentNodeEnv === 'test') {
     return 'testing';
   }
 
-  if (!env || env === 'development') {
+  if (!currentNodeEnv || currentNodeEnv === 'development') {
     return 'development';
   }
 
-  return env;
+  return currentNodeEnv;
 }
 
 const path = `.env.${getEnv()}`;
